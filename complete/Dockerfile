@@ -3,7 +3,6 @@ COPY . .
 RUN mvn package
 # target/*.jar
 
-
-# FROM base-runtime  as runtime
-# COPY --from=build /code/artifact /path
-# ENTRYPOINT /path/app
+FROM openjdk:8-jre-alpine as runtime
+COPY --from=build target/rest-service-0.0.1-SNAPSHOT.jar .
+CMD ["java", "-jar", "rest-service-0.0.1-SNAPSHOT.jar"]
