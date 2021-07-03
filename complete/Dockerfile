@@ -1,6 +1,7 @@
+#syntax=docker/dockerfile:experimental
 FROM maven:3.8.1-openjdk-8-slim as build
 COPY . .
-RUN mvn package
+RUN --mount=type=cache,target=/root/.m2/repository mvn package
 # target/*.jar
 
 FROM openjdk:8-jre-alpine as runtime
